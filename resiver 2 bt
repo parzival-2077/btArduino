@@ -1,0 +1,43 @@
+// Приемник - Reciver 
+// Принимает непрерывно символ "0" - зажигает зеленый светодиод - связь установлена
+// При поступлении символа "1" издает звуковой сигнал - зажигает красный светодиод - нажата кнопка
+
+#include <SoftwareSerial.h>
+byte code;
+byte code2;
+const int arduino_rx = 2;
+const int arduino_tx = 3;
+SoftwareSerial mySerial (arduino_rx, arduino_tx);
+SoftwareSerial mySerial2(6,7);
+ 
+void setup()  {
+  pinMode( arduino_rx,INPUT); 
+  pinMode( arduino_tx,OUTPUT);
+  pinMode(6,INPUT);
+  pinMode(7,OUTPUT);
+  Serial.begin(9600);
+  mySerial.begin(9600);
+  mySerial2.begin(9600);
+  Serial.println( "<<< Start! >>>");
+}
+
+void loop() {
+//     if (Serial.available()) {
+//        code = Serial.read(); // читаем из штатного Serial-порта
+//        Serial.println(code,DEC);
+//     } 
+     if (mySerial2.available()){ // читаем из програмного SoftSerial-порта 
+        code = mySerial2.read(); 
+        Serial.println(code);
+        //delay(100);
+     } 
+     if (mySerial2.available()){
+      code2=mySerial2.read();
+      //Serial.println(code2);
+      
+      
+     }
+      //if (code == 49){tone(10,500,100);digitalWrite(13,0);delay(100);noTone(10);}// Если пришла единица
+      //if (code == 48){digitalWrite(13,1);}// Если пришел ноль - связь установлена
+     // code = 0;
+}
